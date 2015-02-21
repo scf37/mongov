@@ -1,0 +1,63 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+group = 'ru.scf37'
+version = '1.0.0-SNAPSHOT'
+
+description = """MongoV"""
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+mainClassName = "ru.scf37.mongov.Main"
+
+applicationDistribution.from('src/main/webapp') {
+	into "webapp"
+}
+
+applicationDefaultJvmArgs = ['-Dconfig.environment=prod']
+
+task fatJar(type: Jar) {
+	baseName = project.name + '-all'
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	from file('src/main/webapp')
+	with jar
+}
+
+repositories {
+//	mavenLocal()
+	mavenCentral()
+	maven {	url 'https://raw.githubusercontent.com/scf37/maven/master' }
+	maven {	url 'http://repo.maven.apache.org/maven2' }
+}
+dependencies {
+    compile group: 'com.google.code.gson', name: 'gson', version:'2.2.2'
+    compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version:'9.0.5.v20130815'
+    compile group: 'org.freemarker', name: 'freemarker', version:'2.3.19'
+    compile group: 'com.googlecode.htmlcompressor', name: 'htmlcompressor', version:'1.5.2'
+    compile group: 'com.yahoo.platform.yui', name: 'yuicompressor', version:'2.4.7'
+    compile group: 'com.google.javascript', name: 'closure-compiler', version:'v20130603'
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version:'1.9.2'
+    compile group: 'org.springframework', name: 'spring-webmvc', version:'3.2.9.RELEASE'
+	compile group: 'org.springframework', name: 'spring-context-support', version:'3.2.9.RELEASE'
+    compile 'ru.scf37.config:config:1.2.0'
+    compile group: 'org.mongodb', name: 'mongo-java-driver', version:'2.13.0'
+    compile 'org.springframework.data:spring-data-mongodb:1.5.1.RELEASE'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.2.1'
+    compile group: 'commons-io', name: 'commons-io', version:'2.4'
+    compile group: 'com.google.guava', name: 'guava', version:'12.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.0.1'
+    compile group: 'log4j', name: 'log4j', version:'1.2.16'
+    compile group: 'commons-collections', name: 'commons-collections', version:'3.2.1'
+	compile group: 'org.apache.tomcat', name: 'tomcat-servlet-api', version:'7.0.22'
+	compile group: 'org.projectlombok', name: 'lombok', version:'1.12.6'
+    compile(group: 'commons-beanutils', name: 'commons-beanutils', version:'1.7.0') {
+		exclude(module: 'commons-collections')
+		exclude(module: 'commons-logging')
+    }
+    compile(group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.6.1') {
+		exclude(module: 'log4j')
+    }
+}

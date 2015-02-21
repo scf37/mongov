@@ -1,0 +1,12 @@
+target
+build
+.gradle
+*.class
+.project
+.classpath
+.settings
+rebel.xml
+/bin
+/src/main/webapp/WEB-INF/app/main.css
+/src/main/webapp/WEB-INF/app/main.js
+/logs

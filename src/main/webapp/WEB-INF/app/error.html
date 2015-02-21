@@ -1,0 +1,46 @@
+<#include "/head.ftl" />
+<@head>
+	<style type="text/css">
+		
+		h3 {
+			padding: 1em 0 1em 0;
+		}
+		
+		#message {
+			color: red;
+		}
+		
+		#connect {
+			margin-top: 1em;
+			float: right;
+		}
+		
+		#conn-params {
+			position: fixed;
+		}
+		
+		#connParamsForm {
+			padding: 3em;
+		    width: 200px;
+		    height: 200px;
+			border-radius: 10px;
+			background-color: #DDDDDD; 
+		    position: absolute;
+		    top:0;
+		    bottom: 0;
+		    left: 0;
+		    right: 0;
+		
+		    margin: auto;
+		}
+	</style>
+</@head>
+<body>
+	<h3>Mongo Viewer</h3>
+	<h4 id="message">${message!''}</h4>
+	<a class="command" onclick="$('#stacktrace').show()">Show stacktrace</a>
+	<pre id="stacktrace" style="display: none">${stacktrace}</pre>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+</body>
+</html>

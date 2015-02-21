@@ -1,0 +1,66 @@
+* {
+	margin:0;
+	padding:0;
+}
+
+html,body,table,td,th,div,span,img,p,ul,li,a {
+	outline:none;
+	margin:0;
+	padding:0;
+}
+
+img {border:none;}
+table {
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+td {vertical-align:top;}
+th {vertical-align:middle;text-align:left;}
+
+a {
+	color: #1122CC;/* #6699cc;*/
+}
+a:visited {
+	color: #660099
+}
+
+input[type=text]{
+	width:132px;
+    padding: 3px;
+    margin: 0.1em;
+}
+
+label {
+	margin-right: 1em;
+}
+
+
+button{
+    padding: 4px 1em 4px 1em;
+    cursor: pointer;
+	
+	font-weight:bold;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.clear{
+	float:none; clear:both; height:1px; overflow:hidden;
+}
+
+a .command, .command:visited{
+	text-decoration:none;
+	font-weight:bold;
+	padding-right:4px;
+	font-size:0.85em;
+	border-bottom: 1px dotted #0066CC;
+	cursor: pointer;
+}
+.command:hover{	
+	color: #СС0000;
+	border-bottom: 1px dotted #СС0000;
+}
+
+

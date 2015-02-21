@@ -1,0 +1,17 @@
+/* table */
+.table th{
+	color: #004B91;
+	text-align:center;
+}
+
+.table th, .table td{
+	padding:2px 8px;
+}
+.table .odd td{
+	background:#fafafa;
+	border-bottom:1px solid #cacaca;
+	border-left:1px dotted #bbb;
+}
+.table td.first{
+	border-left:0;
+}
