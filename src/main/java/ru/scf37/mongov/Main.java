@@ -26,18 +26,18 @@ public class Main {
 		}
 		
 		Server server = new Server(config.port);
-		server.setHandler(buildWebAppContext(server, config.root));
+		server.setHandler(buildWebAppContext(server, config));
 		server.start();
 		for (;;) {
 			Thread.sleep(1000);
 		}
 	}
 	
-	public static WebAppContext buildWebAppContext(Server server, String root){
+	public static WebAppContext buildWebAppContext(Server server, MongovConfig config){
 		WebAppContext webAppContext = new WebAppContext();
 		webAppContext.setDescriptor("WEB-INF/web.xml");
-		webAppContext.setResourceBase(root);
-		webAppContext.setContextPath("/");
+		webAppContext.setResourceBase(config.root);
+		webAppContext.setContextPath(config.contextPath);
 		webAppContext.setServer(server);
 		return webAppContext;
 	}
@@ -47,6 +47,8 @@ public class Main {
 		public String root;
 		@ConfigProperty("mongov.port")
 		public int port;
+		@ConfigProperty(value="mongov.contextPath", mandatory=false)
+		public String contextPath = "/";
 		@ConfigProperty(value="mongov.killPort", mandatory=false)
 		public int killPort = 0;
 	}

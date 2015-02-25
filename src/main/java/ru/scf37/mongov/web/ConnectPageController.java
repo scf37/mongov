@@ -36,7 +36,7 @@ public class ConnectPageController {
 		try {
 			MongoSource.getInstance().connect();
 		} catch (Exception e) {
-			throw new NotConnectedException(e.getMessage() + (e.getCause() == null? ", " + e.getCause().getMessage() : ""));
+			throw new NotConnectedException(e.getMessage() + (e.getCause() != null? ", " + e.getCause().getMessage() : ""));
 		}
 		
 		String referer = servletRequest.getHeader("Referer");
