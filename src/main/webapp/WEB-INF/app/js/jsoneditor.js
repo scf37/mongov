@@ -46,7 +46,7 @@ function JsonEditor (root, onsave, oncancel) {
 	
 	cancelButton.click(function() {
 		if (modified) {
-			if (confirm('Data has been modified. Discard changes?')) {
+			if (!confirm('Data has been modified. Discard changes?')) {
 				return;
 			}
 		}
@@ -130,7 +130,7 @@ function JsonEditor (root, onsave, oncancel) {
 		if (typeof json == 'string') {
 			edit.val(json);
 		} else {
-			edit.val(JSON.stringify(json, null, '  '));
+			edit.val(JSON.stringify(json, null, 2));
 		}
 		edit.css("background-color", '#f0ffff');
 		modified = false;
@@ -140,7 +140,7 @@ function JsonEditor (root, onsave, oncancel) {
 
 	
 	this.edit = function(json_) {
-		json = json_;
+		json = json_
 		buildSelectItems(json);
 		
 		setEdit(items[0]);

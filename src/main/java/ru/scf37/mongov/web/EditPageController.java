@@ -1,6 +1,8 @@
 package ru.scf37.mongov.web;
 
-import java.util.Map;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ru.scf37.mongov.dao.MongoDao;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
@@ -24,16 +24,16 @@ public class EditPageController {
 	private MongoDao mongoDao;
 	
 	@RequestMapping(value="/edit/{db}/{coll}/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Object index(Model model,
+	public void index(Model model,
 		@PathVariable(value="db") String db,
 		@PathVariable(value="coll") String coll,
-		@PathVariable(value="id") String id
-		) {
+		@PathVariable(value="id") String id, 
+		HttpServletResponse response
+		) throws IOException {
 		DBObject obj = mongoDao.get(db, coll, JSON.parse(id));
-		Gson g = new GsonBuilder().setPrettyPrinting().create();
 		
-		return g.toJson(g.fromJson(JSON.serialize(obj), Map.class));
+		response.setContentType("application/json");
+		response.getWriter().write(JSON.serialize(obj));
 	}
 		
 	@RequestMapping(value="/delete/{db}/{coll}/{id}", method = RequestMethod.POST)

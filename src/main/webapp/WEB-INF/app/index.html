@@ -43,6 +43,10 @@
 		                no-repeat;
 		}
 		
+		body {
+			padding-left: 1em;
+		}
+		
 		body.loading {
 		    overflow: hidden;   
 		}
@@ -78,12 +82,23 @@
 	
 	
 	
-	
+	<#if offset &gt; 0>
 	<a href="${setParam('offset', offset - 50)?html}">&lt;</a>
+	<#else>
+	&lt;
+	</#if>
 	${offset / 50 + 1} / ${((elementsCount + 49) / 50)?floor}
+	<#if offset + 50 &lt; elementsCount>
 	<a href="${setParam('offset', offset + 50)?html}">&gt;</a>
+	<#else>
+	&gt;
+	</#if>
 	
 	<br />
+	
+	<#if elements?size == 0>
+	<h4>No data</h4>
+	</#if>
 	
 	<table class="table">
 		<tr>
@@ -107,13 +122,13 @@
 			<tr>
 			<td>
 				<#if elem['_id']??>
-					<a id="del_${(db + '/' + coll + '/' + elem['_id'].value)?html}" class = "delete_element" href="javascript:">x</a>
+					<a id="del_${(db + '/' + coll + '/' + elem['_id'].id)?html}" class = "delete_element" href="javascript:">x</a>
 				</#if>
 			</td> 
 			<#list fields as f>
 			<td>
 				<#if f == '_id'>
-					<a id="edit_${(db + '/' + coll + '/' + elem[f].value)?html}"
+					<a id="edit_${(db + '/' + coll + '/' + elem[f].id)?html}"
 						href="javascript:" 
 						title="${elem[f].value?html}" class="edit_element">${elem[f].shortValue?html}</a>
 				<#else>
@@ -184,7 +199,7 @@
 							function(json) {
 								$.ajax(saveId, {
 									method: 'POST',
-									data: json,
+									data: JSON.stringify(json),
 									error: function() {
 										alert('Save failed');
 									},

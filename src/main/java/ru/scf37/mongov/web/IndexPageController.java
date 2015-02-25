@@ -125,8 +125,14 @@ public class IndexPageController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		if (field.equals("_id")) {
-			map.put("shortValue", v == null ? "null" : v.toString());
-			map.put("value", JSON.serialize(v));
+			map.put("id", JSON.serialize(v));
+		}
+		
+		if (v instanceof ObjectId) {
+			ObjectId id = (ObjectId) v;
+			map.put("shortValue", v.toString());
+			map.put("value", id.getDate().toGMTString() + "\n" + Integer.toHexString(id.getMachine()) 
+					+ "/" + Integer.toHexString(id.getInc()));
 			map.put("searchable", false);
 			return map;
 		}
