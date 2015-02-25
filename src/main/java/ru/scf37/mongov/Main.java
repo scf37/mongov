@@ -1,6 +1,8 @@
 package ru.scf37.mongov;
 
+import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 import ru.scf37.config.ConfigFactory;
@@ -24,8 +26,11 @@ public class Main {
 			kp.kill();
 			kp.startServer();
 		}
-		
-		Server server = new Server(config.port);
+		Server server = new Server();
+		ServerConnector connector = new ServerConnector(server);
+        connector.setPort(config.port);
+       	connector.setHost(config.bindAddr);
+        server.setConnectors(new Connector[]{connector});
 		server.setHandler(buildWebAppContext(server, config));
 		server.start();
 		for (;;) {
@@ -47,6 +52,8 @@ public class Main {
 		public String root;
 		@ConfigProperty("mongov.port")
 		public int port;
+		@ConfigProperty(value="mongov.bindAddr", mandatory = false)
+		public String bindAddr = "0.0.0.0";
 		@ConfigProperty(value="mongov.contextPath", mandatory=false)
 		public String contextPath = "/";
 		@ConfigProperty(value="mongov.killPort", mandatory=false)
